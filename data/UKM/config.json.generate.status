@@ -1,0 +1,73 @@
+cat << CTAG
+{
+	name:STATUS,
+		elements:[
+			{ SPane:{
+				title:"Battery Temperature:"
+			}},
+				{ SLiveLabel:{
+					refresh:3000,
+					style:italic,
+					action:"live BatteryTemperature"
+				}},
+			{ SPane:{
+				title:"CPU Temperature:"
+			}},
+				{ SLiveLabel:{
+					refresh:3000,
+					style:italic,
+					action:"live CPUTemperature"
+				}},
+			{ SPane:{
+				title:"Memory:"
+			}},
+				{ SLiveLabel:{
+					refresh:3000,
+					style:italic,
+					action:"live Memory"
+				}},
+			{ SPane:{
+				title:"Uptime:"
+			}},
+				{ SLiveLabel:{
+					refresh:0,
+					style:italic,
+					action:"live UpTime"
+				}},
+			{ SPane:{
+				title:"Live Cpu Frequency:"
+			}},
+				{ SLiveLabel:{
+					refresh:1500,
+					style:italic,
+					action:"live CPUFrequency"
+				}},
+			{ SPane:{
+				title:"Live Gpu Frequency:"
+			}},
+				{ SLiveLabel:{
+					refresh:1500,
+					style:italic,
+					action:"live GPUFrequency"
+				}},
+			`if [ -f "/proc/wakelocks" ]; then
+				$BB echo '{ SPane:{
+					title:"Kernel Wakelocks (Top 10):"
+				}},
+					{ SLiveLabel:{
+						refresh:0,
+						style:italic,
+						action:"live WakelocksKernel"
+					}},'
+			fi`
+			{ SPane:{
+				title:"Installation Check:"
+			}},
+				{ SLiveLabel:{
+					refresh:0,
+					style:italic,
+					action:"live InstallationCheck"
+				}},
+		]
+}
+CTAG
