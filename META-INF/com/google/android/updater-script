@@ -52,6 +52,7 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.cleanup") == 1,
   (delete_recursive("/tmp/anykernel");
   )
 );
+package_extract_file("profiles", "/sdcard/Synapse/saved_profiles");
 ui_print("Deleting trash files left by other kernels...");
 unmount("/system");
 
