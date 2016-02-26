@@ -15,7 +15,9 @@ cat << CTAG
 			$BB echo ','
 			. $UKM/config.json.generate.status
 			$BB echo ','
-			. $UKM/config.json.generate.cpu
+			. $UKM/config.json.generate.a53
+			$BB echo ','
+			. $UKM/config.json.generate.a57
 			$BB echo ','
 			. $UKM/config.json.generate.hotplug
 			$BB echo ','
