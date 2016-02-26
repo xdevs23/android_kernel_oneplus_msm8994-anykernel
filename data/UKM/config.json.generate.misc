@@ -89,6 +89,21 @@ cat << CTAG
 						action:"generic /sys/devices/virtual/timed_output/vibrator/vmax_mv"
 					}},'
 			fi`
+`if [ -f "/proc/s1302/key_rep" ]; then
+                               NS=\`$BB cat /proc/s1302/key_rep\`;
+                               $BB echo '{ SPane:{
+                                       title:"Switch Hardware Buttons",
+									}},
+									{ SCheckBox:{
+										description:"Switch back and recents button",
+										label:"Switch HW Buttons",
+                                        default:'$NS',
+                                        action:"generic /proc/s1302/key_rep",
+									}},
+									{ SSpacer:{
+										height: 1
+									}}'
+				fi`
 		]
 }
 CTAG
