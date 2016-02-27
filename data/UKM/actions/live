@@ -12,6 +12,9 @@ case $1 in
 	CPUFrequency)
 		$BB echo `sh $DEVICE LiveCPUFrequency`;
 	;;
+	CPU1Frequency)
+		$BB echo `sh $DEVICE LiveCPU1Frequency`;
+	;;
 	CPUScalingA53)
 		$BB echo `sh $DEVICE LiveCPUScalingA53`;
 	;;
@@ -83,6 +86,9 @@ case $1 in
 	;;
 	CpuClusterA57)
 		$BB echo `sh $DEVICE LiveCpuClusterA57`;
+	;;
+	CpuBoost)
+		$BB echo `sh $DEVICE LiveCpuBoost`;
 	;;
 	StateNotifier)
 		$BB echo `sh $DEVICE LiveStateNotifier`;

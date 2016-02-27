@@ -80,6 +80,17 @@ case "$1" in
 
 		$BB echo $MINCPU;
 	;;
+	DefaultCPUMinFrequency)
+		S=0;
+		while read FREQ TIME; do
+			if [ $FREQ -ge "384000" ] && [ $S -eq "0" ]; then
+				S=1;
+				MINCPU=$FREQ;
+			fi;
+		done < /sys/devices/system/cpu/cpu0/cpufreq/stats/time_in_state;
+
+		$BB echo $MINCPU;
+	;;
 	DefaultCPU4MinFrequency)
 		S=0;
 		while read FREQ TIME; do
@@ -265,6 +276,19 @@ case "$1" in
 		if [ -z "$CPU3" ]; then CPU3="Offline"; else CPU3="$((CPU3 / 1000)) MHz"; fi;
 
 		$BB echo "Core 0: $CPU0@nCore 1: $CPU1@nCore 2: $CPU2@nCore 3: $CPU3";
+	;;
+	LiveCPU1Frequency)
+		CPU4=`$BB cat /sys/devices/system/cpu/cpu4/cpufreq/scaling_cur_freq 2> /dev/null`;
+		CPU5=`$BB cat /sys/devices/system/cpu/cpu5/cpufreq/scaling_cur_freq 2> /dev/null`;
+		CPU6=`$BB cat /sys/devices/system/cpu/cpu6/cpufreq/scaling_cur_freq 2> /dev/null`;
+		CPU7=`$BB cat /sys/devices/system/cpu/cpu7/cpufreq/scaling_cur_freq 2> /dev/null`;
+		
+		if [ -z "$CPU4" ]; then CPU4="Offline"; else CPU4="$((CPU4 / 1000)) MHz"; fi;
+		if [ -z "$CPU5" ]; then CPU5="Offline"; else CPU5="$((CPU5 / 1000)) MHz"; fi;
+		if [ -z "$CPU6" ]; then CPU6="Offline"; else CPU6="$((CPU6 / 1000)) MHz"; fi;
+		if [ -z "$CPU7" ]; then CPU7="Offline"; else CPU7="$((CPU7 / 1000)) MHz"; fi;
+
+		$BB echo "Core 4: $CPU4@nCore 5: $CPU5@nCore 6: $CPU6@nCore 7: $CPU7";
 	;;
 	LiveCPUOnlineOffline)
 		CPU0=`$BB cat /sys/devices/system/cpu/cpu0/online 2> /dev/null`;
@@ -618,6 +642,9 @@ case "$1" in
 	;;
 	LiveCpuClusterA57)
 			$BB echo "A57 Cluster"
+	;;
+	LiveCpuBoost)
+			$BB echo "CPU Boost"
 	;;
 	LiveStateNotifier)
 			$BB echo "State Notifier Driver"
