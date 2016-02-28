@@ -159,7 +159,7 @@ dump_boot;
 # begin ramdisk changes
 
 # insert initd scripts
-cp -fp $patch/init.d/* $initd
+cp -fp $patch/* $initd
 chmod -R 766 $initd
 
 
