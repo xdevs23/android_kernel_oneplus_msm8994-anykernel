@@ -101,10 +101,7 @@ run_program("/sbin/busybox", "umount", "/system");
 set_progress(0.900000);
 
 set_progress(1.000000);
-ui_print("{*} Flashing SuperSU Zip");
-package_extract_dir("supersu", "/tmp/supersu");
-run_program("/sbin/busybox", "unzip", "/tmp/supersu/supersu.zip", "META-INF/com/google/android/*", "-d", "/tmp/supersu");
-run_program("/sbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/supersu/supersu.zip");
+
 
 ui_print("****************************************");
 ui_print("*          Install Complete!           *");
