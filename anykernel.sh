@@ -69,7 +69,7 @@ write_boot() {
     kernel=`ls *-Image`;
     kernel=$split_img/$kernel;
   fi;
-  if [ -f /tmp/anykernel/dtb ]; then
+  if [ -f /tmp/anykernel/dt.img ]; then
     dtb="--dt /tmp/anykernel/dtb";
   elif [ -f *-dtb ]; then
     dtb=`ls *-dtb`;
@@ -163,56 +163,6 @@ cp -fp $patch/* $initd
 chmod -R 766 $initd
 
 
-
-# adb secure
-backup_file default.prop;
-replace_string default.prop "ro.adb.secure=0" "ro.adb.secure=1" "ro.adb.secure=0";
-replace_string default.prop "ro.debuggable=0" "ro.debuggable=1" "ro.debuggable=0";
-
-
-
-# add refresh of permissions after an event
-backup_file ueventd.rc;
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq_hardlimit 0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq_hardlimit 0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/scaling_governor   0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq_hardlimit 0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq_hardlimit 0664  system system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/above_hispeed_delay 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/align_windows 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse_duration 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/go_hispeed_load 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/hispeed_freq 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/max_freq_hysteresis 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/min_sample_time 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/target_loads 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_slack 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/use_migration_notif 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu0/cpufreq/interactive/use_sched_load 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/above_hispeed_delay 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/align_windows 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/boostpulse_duration 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/go_hispeed_load 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/hispeed_freq 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/io_is_busy 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/max_freq_hysteresis 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/target_loads 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_slack 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "/sys/devices/system/cpu/cpu4/cpufreq/interactive/use_sched_load 0664    system  system\n";
-insert_line ueventd.rc "# ak sysfs properties" after "/dev/ppp                  0660   radio      vpn" "# ak sysfs properties\n";
 
 # end ramdisk changes
 
