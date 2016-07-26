@@ -21,7 +21,7 @@ $(ANYKERNEL_SH):
 	@if [ ! -e "$(OUT)/kernel" ]; then echo -e "\033[91mNo kernel image found! Please build the kernel using 'make bootimage' first.\033[0m"; exit 1; fi
 	@echo "Building AnyKernel package..."
 	cp $(OUT)/kernel $(LOCAL_DIR)/Image
-	zip -r $(OUT)/anykernel.zip $(LOCAL_DIR)/* -x README
+	cd $(LOCAL_DIR); zip -r $(OUT)/anykernel.zip ./* -x README
 	mv $(OUT)/anykernel.zip $(OUT)/$(LOCAL_KERNEL_VERSION)$(LOCAL_KERNEL_AUTHOR_ENDSTRING).zip
 	@echo "AnyKernel package is made."
 

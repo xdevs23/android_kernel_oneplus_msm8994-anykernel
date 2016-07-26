@@ -3,7 +3,7 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=Benschholds custom Kernel
+kernel.string=BlueBerry Kernel
 do.devicecheck=1
 do.initd=1
 do.modules=1
