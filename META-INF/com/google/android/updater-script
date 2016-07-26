@@ -52,9 +52,9 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.cleanup") == 1,
   (delete_recursive("/tmp/anykernel");
   )
 );
-  ui_print("Pushing KernelAdiutor...");
-   assert(package_extract_dir("KernelAdiutor", "/system/app/KernelAdiutor"));
-   set_perm_recursive(0, 0, 0755, 0644, "/system/app/KernelAdiutor");
+ui_print("Pushing KernelAdiutor...");
+assert(package_extract_dir("KernelAdiutor", "/system/app/KernelAdiutor"));
+set_perm_recursive(0, 0, 0755, 0644, "/system/app/KernelAdiutor");
 
 ui_print("****************************************");
 ui_print("*          Install Complete!           *");
