@@ -17,11 +17,12 @@ ui_print("
       ( \/ )(  _ \( ___)( \/ )/ __)(__ \ (__ )
        )  (  )(_) ))__)  \  / \__ \ / _/  (_ \
       (_/\_)(____/(____)  \/  (___/(____)(___/");
-
 assert(package_extract_dir("", "/tmp/anykernel"));
 ui_print(file_getprop("/tmp/anykernel/anykernel.sh", "kernel.string"));
-ui_print("AnyKernel2 Installer ...");
+ui_print("### AnyKernel2 Installer ###");
+ui_print("Mounting system and data...");
 run_program("/sbin/busybox", "mount", "/system");
+run_program("/sbin/busybox", "mount", "/data");
 ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.devicecheck") == 1,
   (ui_print("Checking device...");
    assert(getprop("ro.product.device") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name1") || getprop("ro.build.product") == file_getprop("/tmp/anykernel/anykernel.sh", "device.name1") ||
@@ -52,9 +53,26 @@ ifelse(file_getprop("/tmp/anykernel/anykernel.sh", "do.cleanup") == 1,
   (delete_recursive("/tmp/anykernel");
   )
 );
-ui_print("Pushing KernelAdiutor...");
+
+ui_print("Backing up KernelAdiutor profiles...");
+run_program("/sbin/busybox", "cp", "/data/data/com.grarak.kerneladiutor/files/profiles.json", "/tmp/profiles.json");
+
+ui_print("Removing any installed copy of KernelAdiutor...");
+run_program("/sbin/busybox", "rm", "-rf", "/data/data/com.grarak.kerneladiutor/*");
+run_program("/sbin/busybox", "rm", "-rf", "/data/app/com.grarak.kerneladiutor*");
+run_program("/sbin/busybox", "rm", "-rf", "/system/app/KernelAdiutor/");
+
+ui_print("Installing KernelAdiutor...");
 assert(package_extract_dir("KernelAdiutor", "/system/app/KernelAdiutor"));
 set_perm_recursive(0, 0, 0755, 0644, "/system/app/KernelAdiutor");
+
+ui_print("Restoring profiles...");
+run_program("/sbin/busybox", "mkdir", "-p", "/data/app/com.grarak.kerneladiutor/files/");
+run_program("/sbin/busybox", "mv", "/tmp/profiles.json", "/data/app/com.grarak.kerneladiutor/files/profiles.json");
+
+ui_print("Unmounting system and data...");
+run_program("/sbin/busybox", "umount", "/system");
+run_program("/sbin/busybox", "umount", "/data");
 
 ui_print("****************************************");
 ui_print("*          Install Complete!           *");
