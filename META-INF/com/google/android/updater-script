@@ -61,14 +61,15 @@ ui_print("Removing any installed copy of KernelAdiutor...");
 run_program("/sbin/busybox", "rm", "-rf", "/data/data/com.grarak.kerneladiutor/*");
 run_program("/sbin/busybox", "rm", "-rf", "/data/app/com.grarak.kerneladiutor*");
 run_program("/sbin/busybox", "rm", "-rf", "/system/app/KernelAdiutor/");
+run_program("/sbin/busybox", "rm", "-rf", "/system/priv-app/KernelAdiutor/");
 
 ui_print("Installing KernelAdiutor...");
 assert(package_extract_dir("KernelAdiutor", "/system/app/KernelAdiutor"));
 set_perm_recursive(0, 0, 0755, 0644, "/system/app/KernelAdiutor");
 
 ui_print("Restoring profiles...");
-run_program("/sbin/busybox", "mkdir", "-p", "/data/app/com.grarak.kerneladiutor/files/");
-run_program("/sbin/busybox", "mv", "/tmp/profiles.json", "/data/app/com.grarak.kerneladiutor/files/profiles.json");
+run_program("/sbin/busybox", "mkdir", "-p", "/data/data/com.grarak.kerneladiutor/files/");
+run_program("/sbin/busybox", "mv", "/tmp/profiles.json", "/data/data/com.grarak.kerneladiutor/files/profiles.json");
 
 ui_print("Adding custom controls...");
 run_program("/sbin/busybox", "mv", "/data/data/com.grarak.kerneladiutor/files/controls.json", "/data/data/com.grarak.kerneladiutor/files/controls.json.bak");
