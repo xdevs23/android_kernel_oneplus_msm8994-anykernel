@@ -70,6 +70,11 @@ ui_print("Restoring profiles...");
 run_program("/sbin/busybox", "mkdir", "-p", "/data/app/com.grarak.kerneladiutor/files/");
 run_program("/sbin/busybox", "mv", "/tmp/profiles.json", "/data/app/com.grarak.kerneladiutor/files/profiles.json");
 
+ui_print("Adding custom controls...");
+run_program("/sbin/busybox", "mv", "/data/data/com.grarak.kerneladiutor/files/controls.json", "/data/data/com.grarak.kerneladiutor/files/controls.json.bak");
+ui_print("Note: if you already had custom controls, the file is now renamed to controls.json.bak");
+package_extract_dir("KernelAdiutorData", "/data/data/com.grarak.kerneladiutor/files/");
+
 ui_print("Unmounting system and data...");
 run_program("/sbin/busybox", "umount", "/system");
 run_program("/sbin/busybox", "umount", "/data");
