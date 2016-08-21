@@ -80,6 +80,10 @@ run_program("/sbin/busybox", "mv", "/data/data/com.grarak.kerneladiutor/files/co
 ui_print("Note: if you already had custom controls, the file is now renamed to controls.json.bak");
 package_extract_dir("KernelAdiutorData", "/data/data/com.grarak.kerneladiutor/files/");
 
+ui_print("Fixing permissions...");
+run_program("/sbin/busybox", "chown", "-R", "$(toybox stat -c \"%u\" /data/data/com.grarak.kerneladiutor/)", "/data/data/com.grarak.kerneladiutor/");
+run_program("/sbin/busybox", "chmod", "644", "/data/data/com.grarak.kerneladiutor/files/*.json");
+
 ui_print("Unmounting system and data...");
 run_program("/sbin/busybox", "umount", "/system");
 run_program("/sbin/busybox", "umount", "/data");
