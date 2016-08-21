@@ -76,5 +76,4 @@ GTAGS
 # Built kernel image
 Image
 
-# Don't ship it in git, it's useless...
-KernelAdiutor
+
