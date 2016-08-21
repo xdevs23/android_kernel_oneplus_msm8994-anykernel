@@ -7,7 +7,7 @@ LOCAL_PATH := $(LOCAL_DIR)
 
 LOCAL_MODULE := anykernel
 
-LOCAL_KERNEL_VERSION := blueberry-kernel-v1.3-bh3.6
+LOCAL_KERNEL_VERSION := blueberry-kernel-v1.4-bh3.6
 LOCAL_KERNEL_AUTHOR := xdevs23
 LOCAL_KERNEL_AUTHOR_ENDSTRING :=
 
